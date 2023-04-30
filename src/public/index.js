@@ -17,33 +17,23 @@ Swal.fire({
     socket.emit('authenticated', user);
 })
 
-document.addEventListener("click", (event) => {
-    const clickedElement = event.target;
-    if ((!clickedElement.matches('.sendText')) || (event.key==="Enter")) {
-        if (chatbox.value.trim().length>0) {
-            socket.emit('msg', {user, message:chatbox.value.trim()})
-            chatbox.value="";
-        }
+const button = document.getElementById('sendButton');
+
+button.addEventListener("click", (event) => {
+    if (chatbox.value.trim().length>0) {
+        socket.emit('msg', {user, message:chatbox.value.trim()})
+        chatbox.value="";
     }
+    
     
   });
-
-/* chatbox.addEventListener('keyup', e=>{
-    
-    if (e.key==="Enter") {
-        // trim borra espacios vacios y se fija que haya algun caracter
-        if (chatbox.value.trim().length>0) {
-            socket.emit('msg', {user, message:chatbox.value.trim()})
-            chatbox.value="";
-        }
-    }
-}) */
 
 socket.on('logs', data=>{
     const logs = document.getElementById('logs');
     let msg="";
     data.forEach(e => {
-        msg+=`${e.user} dice: ${e.message} <br/>`
+        msg+=`
+        <p class="fw-bold">${e.user}:&nbsp</p><p class="fst-italic">${e.message} </p><br/>`
     });
     logs.innerHTML=msg;
 })
@@ -54,7 +44,7 @@ socket.on('newUserConnected', data=> {
         toast:true,
         position: 'top-end',
         showConfirmButton: false,
-        timer: 2000,
+        timer: 4000,
         title: `${data} se unió al chat.`,
         icon: "success",
     })
