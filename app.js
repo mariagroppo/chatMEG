@@ -8,7 +8,7 @@ const PORT=process.env.PORT||8080;
 
 app.use(express.urlencoded({extended:true}));
 app.use(express.static(__dirname + '/src/public'));
-app.use('/api/chat', router);
+app.use('/', router);
 
 /* CONFIGURACION DE HANDLEBARS ------------------------------------------------------------------ */
 import { engine } from 'express-handlebars';

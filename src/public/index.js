@@ -17,7 +17,18 @@ Swal.fire({
     socket.emit('authenticated', user);
 })
 
-chatbox.addEventListener('keyup', e=>{
+document.addEventListener("click", (event) => {
+    const clickedElement = event.target;
+    if ((!clickedElement.matches('.sendText')) || (event.key==="Enter")) {
+        if (chatbox.value.trim().length>0) {
+            socket.emit('msg', {user, message:chatbox.value.trim()})
+            chatbox.value="";
+        }
+    }
+    
+  });
+
+/* chatbox.addEventListener('keyup', e=>{
     
     if (e.key==="Enter") {
         // trim borra espacios vacios y se fija que haya algun caracter
@@ -26,7 +37,7 @@ chatbox.addEventListener('keyup', e=>{
             chatbox.value="";
         }
     }
-})
+}) */
 
 socket.on('logs', data=>{
     const logs = document.getElementById('logs');
@@ -48,3 +59,12 @@ socket.on('newUserConnected', data=> {
         icon: "success",
     })
 })
+
+/* socket.on('users', data => {
+    let users="";
+    const usersBox = document.getElementById('connectedPeople');
+    data.forEach(e => {
+        users+=`${e} <br/>`
+    });
+    usersBox.innerHTML=users;
+}) */

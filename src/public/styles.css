@@ -17,6 +17,24 @@ body {
     width: 50px;
 }
 
-.containerChatPrincipal {
-    background: #F1EDEA;
+.chatbox {
+    width: 100%;
+}
+
+.containerUsersCel {
+    display:none;
+}
+
+@media (max-width:810px) {
+    .containerUsers {
+        display:none;
+    }
+
+    .containerUsersCel {
+        display:flex;
+    }
+
+    .containerConnected {
+        background-color: #636363;
+    }
 }
